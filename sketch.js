@@ -106,8 +106,10 @@ function changeLanguage() {
 
 		document.getElementById("siteInfo").innerHTML = "This site was created as an experiment to gain experience in the field of site layout. In the process, a semblance of the game menu and other user interface elements was created, as well as the well-known game 'Snake' was written. All written by one person, a student of the 8th grade - Rodion Zainurovich."
 		document.getElementById("youWinSpan").innerHTML = "you win this game";
-		document.getElementById("playButton").innerHTML = "play";
-		document.getElementById("continueGame").innerHTML = "play";
+		document.getElementById("continueGame").innerHTML = "continue";
+		document.getElementById("continueGame").style.fontSize = "40px";
+		document.getElementById("colorModeSpan").innerHTML = "snake's color";
+		document.getElementById("gameSizeSpan").innerHTML = "field size";
 	} else {
 		console.log("english -> russian");
 		let imgSrc = '"russian.png"';
@@ -119,14 +121,16 @@ function changeLanguage() {
 
 		document.getElementById("siteInfo").innerHTML = "Данный сайт создан как некий эксперимент для получения опыта в сфере вёрстки сайтов. В процессе было создано подобие игрового меню и других элементов пользовательского интерфейса, а также написана всем известная игра 'Змейка'. Всё написанно одним человеком, учеником 8 класса - Родионом Айнуровичем.";
 		document.getElementById("youWinSpan").innerHTML = "Вы выиграли";
-		document.getElementById("playButton").innerHTML = "играть";
 		document.getElementById("continueGame").innerHTML = "продолжить";
+		document.getElementById("continueGame").style.fontSize = "20px";
+		document.getElementById("colorModeSpan").innerHTML = "цвет змейки";
+		document.getElementById("gameSizeSpan").innerHTML = "размер поля";
 	}
 	isEnglish = !isEnglish;
 
 	if (self) {
 		let text = self.gameModes[self.gameModeIndex];
-		document.getElementById("gameModeSpan").style.fontSize = "60px";
+		document.getElementById("gameModeSpan").style.fontSize = "40px";
 		if (!isEnglish) {
 			text = self.gameModesRus[self.gameModeIndex];
 			document.getElementById("gameModeSpan").style.fontSize = "30px";
@@ -191,7 +195,10 @@ function increaseColor() {
 	self.colorIndex++;
 	self.colorIndex = (self.colors.length + self.colorIndex) % self.colors.length;
 
-	document.getElementById("colorMode").style.backgroundColor = self.colors[self.colorIndex];
+	let col = self.colors[self.colorIndex];
+	document.getElementById("colorMode").style.backgroundColor = col;
+	document.getElementById("colorModeSpan").style.color = "white";
+	if (col == "yellow" || col == "white") document.getElementById("colorModeSpan").style.color = "black";
 }
 
 function decreaseColor() {
@@ -243,7 +250,7 @@ function increaseMode() {
 	self.gameModeIndex = (self.gameModeIndex + self.gameModes.length) % self.gameModes.length;
 
 	let text = self.gameModes[self.gameModeIndex];
-	document.getElementById("gameModeSpan").style.fontSize = "60px";
+	document.getElementById("gameModeSpan").style.fontSize = "40px";
 	if (!isEnglish) {
 		text = self.gameModesRus[self.gameModeIndex];
 		document.getElementById("gameModeSpan").style.fontSize = "30px";
@@ -258,7 +265,7 @@ function decreaseMode() {
 	self.gameModeIndex = (self.gameModeIndex + self.gameModes.length) % self.gameModes.length;
 
 	let text = self.gameModes[self.gameModeIndex];
-	document.getElementById("gameModeSpan").style.fontSize = "60px";
+	document.getElementById("gameModeSpan").style.fontSize = "40px";
 	if (!isEnglish) {
 		text = self.gameModesRus[self.gameModeIndex];
 		document.getElementById("gameModeSpan").style.fontSize = "30px";
@@ -269,30 +276,41 @@ function decreaseMode() {
 }
 
 function changeGameSize() {
-	console.log("increase game size");
-	self.gameSize++;
-	self.gameSize = self.gameSize % 3;
-
 	let src;
 	let canvasW = parseInt(document.getElementById("canvas").clientWidth);
+	let fontSize = "60px";
 	if (self.gameSize == 0) {
 		self.gridSize = 6;
 		src = "mouse.webp";
+		fontSize = "20px";
 	}
 	if (self.gameSize == 1) {
 		self.gridSize = 15;
 		src = "hippo.png";
+		fontSize = "40px";
 	}
 	if (self.gameSize == 2) {
 		self.gridSize = 30;
 		src = "whale.png";
+		fontSize = "60px";
 	}
 	self.tileSize = canvasW / self.gridSize;
 
-	document.getElementById("gameSizeButton").style.background = "url(" + src + ")" + " no-repeat";
-	document.getElementById("gameSizeButton").style.backgroundOrigin = "border-box";
-	document.getElementById("gameSizeButton").style.backgroundSize = "contain";
-	document.getElementById("gameSizeButton").style.backgroundPosition = "50% 50%";
+	document.getElementById("gameSizeSpan").style.fontSize = fontSize;
+}
+
+function increaseGameSize() {
+	console.log("increase game size");
+	self.gameSize++;
+	self.gameSize = (self.gameSize + 3) % 3;
+	changeGameSize();
+}
+
+function decreaseGameSize() {
+	console.log("increase game size");
+	self.gameSize--;
+	self.gameSize = (self.gameSize + 3) % 3;
+	changeGameSize();
 }
 
 function showWinPanel() {
@@ -300,6 +318,14 @@ function showWinPanel() {
 	document.getElementById("youWinPanel").style.display = "block";
 	setTimeout(function() {
 		document.getElementById("youWinPanel").style.display = "none";
+	}, 2000);
+}
+
+function showLosePanel() {
+	openPausePanel();
+	document.getElementById("youLosePanel").style.display = "block";
+	setTimeout(function() {
+		document.getElementById("youLosePanel").style.display = "none";
 	}, 2000);
 }
 
@@ -384,11 +410,13 @@ class Snake {
 		self = this;
 
 		let text = self.gameModes[self.gameModeIndex];
-		document.getElementById("gameModeSpan").style.fontSize = "60px";
+		document.getElementById("gameModeSpan").style.fontSize = "40px";
+		document.getElementById("colorModeSpan").innerHTML = "snake's color";
 		if (!isEnglish) {
 			text = self.gameModesRus[self.gameModeIndex];
 			document.getElementById("gameModeSpan").style.fontSize = "30px";
 			console.log("change to RUS");
+			document.getElementById("colorModeSpan").innerHTML = "цвет змейки";
 		}
 
 		document.getElementById("gameModeSpan").innerHTML = text;
@@ -571,13 +599,17 @@ class Snake {
 
 	draw() {
 		if (self.win) {
-			openPausePanel();
+			showWinPanel();
 			return;
 		}
 		if (self.lose) {
-			openPausePanel();
+			console.log("uyou loose");
+			if (!self.pause) showLosePanel();
 		}
 		if (self.pause) return;
+
+		console.log(self.keys.length);
+
 		ctx.fillStyle = "black";
 	    ctx.fillRect(0, 0, canvas.width, canvas.height);
 	    ctx.fillStyle = "white";
@@ -685,6 +717,7 @@ function keyDownEvent(e) {
 
 		let code = e.keyCode;
 		if (code >= 37 && code <= 40) {
+			console.log("pushing");
 			// if (self.code == null) self.code = code;
 			if (self.keys.length < 3) self.keys.push(code);
 			//else self.keys[self.keys.length - 1] = code;

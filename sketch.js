@@ -274,21 +274,20 @@ function changeGameSize() {
 	self.gameSize = self.gameSize % 3;
 
 	let src;
+	let canvasW = parseInt(document.getElementById("canvas").clientWidth);
 	if (self.gameSize == 0) {
 		self.gridSize = 6;
-		self.tileSize = 150;
 		src = "mouse.webp";
 	}
 	if (self.gameSize == 1) {
 		self.gridSize = 15;
-		self.tileSize = 60;
 		src = "hippo.png";
 	}
 	if (self.gameSize == 2) {
 		self.gridSize = 30;
-		self.tileSize = 30;
 		src = "whale.png";
 	}
+	self.tileSize = canvasW / self.gridSize;
 
 	document.getElementById("gameSizeButton").style.background = "url(" + src + ")" + " no-repeat";
 	document.getElementById("gameSizeButton").style.backgroundOrigin = "border-box";
@@ -361,6 +360,9 @@ class Snake {
 			self.draw();
 		}, 1000 / self.frameRate);
 
+		let canvasW = parseInt(document.getElementById("canvas").clientHeight);
+		self.tileSize = canvasW / self.gridSize;
+		console.log("canvasW : ", canvasW, document.getElementById("canvas").clientWidth);
 		ctx = canvas.getContext('2d');
 		let side = self.tileSize * self.gridSize;
 		ctx.canvas.width = ctx.canvas.height = side;

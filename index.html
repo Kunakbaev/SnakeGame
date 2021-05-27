@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+
+<div id="mainPage">
+	<div id="menuPanel">
+		<button id="playButton" class="menuElement" onclick="playGame()">play</button>
+		<div id=settingsButton class="menuElement" onclick="openSettings()"></div>
+		<div id="infoButton" onclick="openInfo()" class="menuElement">
+			<span id="infoButtonContent">i</span>
+		</div>
+
+		<div id="infoPanel">
+			<div id="infoPanelText">
+        <img src="closeButton.png" id="infoPanelCloseButton" onclick="closeInfo()"><img>
+        <span id="siteInfo">Данный сайт создан как некий эксперимент для получения опыта в сфере вёрстки сайтов. В процессе было создано подобие игрового меню и других элементов пользовательского
+        интерфейса, а также написана всем известная игра "Змейка". Всё написанно одним человеком, учеником 8 класса - Родионом Айнуровичем.</span>
+      </div>
+		</div>
+	</div>
+
+	<img src="MainPage.png" id="mainPageBackground"></img>
+</div>
+
+<div id="darkBackground"></div>
+<div id="youWinPanel">
+  <span id="youWinSpan">you win this game</span>
+</div>
+
+<div id="settingsPanel">
+  <img src="closeButton.png" id="closeSettings" onclick="closeSettings()" unselectable="on"></img>
+  <div id="languageButton" onclick="changeLanguage()"></div>
+  <div id="muteButton" onclick="changeSound()"></div>
+  <input id = "muteSlider" type="range" oninput="changeVolume()" min=0 max=100 step=1 start=0></input>
+</div>
+
+<div id="pausePanel">
+  <div id="pausePanelUp">
+    <div id="yourScore">
+      <img id="foodScore"></img>
+      <span id="yourScoreSpan">0</span>
+    </div>
+    <div id="bestScore">
+      <img id="trophy"></img>
+      <span id="bestScoreSpan">0</span>
+    </div>
+  </div>
+  <div id="pausePanelDown">
+    <button id="continueGame" onclick="closePausePanel()" unselectable="on">continue</button>
+    <button id="pauseSettings" onclick="openGameSettings()" unselectable="on"></button>
+  </div>
+
+  <div id="gameSettingsPanel">
+    <div id="settingsButtonGame" onclick="openSettings()"></div>
+    <img src="closeButton.png" id="closeGameSettings" onclick="closeGameSettings()" unselectable="on"></img>
+    <div id="selectMode">
+      <button id="slideLeft" onclick="decreaseMode()"></button>
+      <button id="slideRight" onclick="increaseMode()"></button>
+      <div id="gameMode">
+        <span id="gameModeSpan">classic</span>
+      </div>
+    </div>
+    <button id="gameSizeButton" onclick="changeGameSize()"></button>
+    <div id="colorModeDiv">
+      <button id="slideLeftColor" onclick="decreaseColor()"></button>
+      <button id="slideRightColor" onclick="increaseColor()"></button>
+      <div id="colorMode"></div>
+    </div>
+    <div id="foodModeDiv">
+      <button id="slideLeftFood" onclick="decreaseFood()"></button>
+      <button id="slideRightFood" onclick="increaseFood()"></button>
+      <div id="foodMode"></div>
+    </div>
+  </div>
+</div>
+
+<div id="gameDivBackground">
+  <div id="gameDiv">
+    <div id="gameDivUp">
+      <button id="backToMenu" onclick="backToMenu()"></button>
+      <img id="pauseButton" unselectable="on" src="" onclick="openPausePanel()"></img>
+      <span id="score">score : 0</span>
+    </div>
+    <canvas id="canvas" width="400" height="400"></canvas>
+  </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="style.css" media="screen"></link>
+<script src="sketch.js"></script>

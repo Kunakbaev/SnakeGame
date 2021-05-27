@@ -26,14 +26,13 @@
 	}
 
 	#menuPanel {
-		--Wbutton: 40%;
-		--BetweenInfoAndSetting: 20px;
-		--ButtonHeight: calc(var(--Wbutton) * 0.5);
-		--BetweenButtons: calc(var(--ButtonHeight) + 20px);
-		--Allheight: calc(var(--ButtonHeight) + var(--Wbutton) + var(--BetweenButtons));
-		--Wborder: 20px;
+		--Hbutton: calc((100% - var(--BetweenButtons) * 2) / 3);
+		--BetweenButtons: 20px;
+		--Allheight: calc(var(--Hbutton) * 1.5 + var(--BetweenButtons) * 2);
+		--Wborder: 10px;
 		--menuPanelWidth: 500px;
 		--menuPanelHeight: 1000px;
+		--top: calc((100% - var(--Allheight)) / 2 + var(--Wborder));
 
 		position: absolute;
 		width: 500px;
@@ -42,7 +41,7 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		display: block;
-		background: none;
+		background-color: white;
 		border-radius: 50px;
 		border: var(--Wborder) solid black;
 
@@ -53,6 +52,7 @@
 
 	#infoPanel {
 		display: none;
+		background-color: white;
 		width: calc(100% + var(--Wborder) * 2);
 		height: calc(100% + var(--Wborder) * 2);
 		position: absolute;
@@ -118,9 +118,9 @@
 	#infoPanel #infoPanelText span {
 		width: 100%;
 		height: 100%;
-		font-size: 20px;
-		color: white;
-		word-break: break-all;
+		font-size: 40px;
+		color: black;
+/*		word-break: break-all;*/
 		padding-left: 10px;
 		padding-right: 10px;
 		margin-top: 0px;
@@ -128,11 +128,10 @@
 	}
 
 	#infoPanelCloseButton {
-		width: 100px;
-		height: 100px;
+		width: 30px;
+		height: 30px;
 		border: none;
 		float: right;
-		margin: 20px;
 		margin-top: 20px;
 		margin-bottom: 0px;
 		margin-left: 0px;
@@ -147,7 +146,7 @@
 		top: 0%; left: 0%;
 		background-color: white;
 		border-radius: 50px;
-		border: 20px solid black;
+		border: 10px solid black;
 
 		width: 500px;
 		height: 1000px;
@@ -155,11 +154,11 @@
 		max-width: 25%;
 		max-height: 90%;
 
-		--Wborder: 20px;
+		--Wborder: 10px;
 		--BetweenSliderPause: 40px;
 		--WborderLanguageMute: 20px;
 		--BetweenLanguageMute: 40px;
-		--BetweenButtonsSlider: 40px;
+		--BetweenButtonsSlider: 80px;
 		--SliderH: 40px;
 		--ButtonW: calc((100% - (var(--WborderLanguageMute) * 2 + var(--BetweenLanguageMute))) / 2);
 		--AllH: calc(var(--ButtonW) + var(--BetweenButtonsSlider) + var(--SliderH));
@@ -178,8 +177,8 @@
 	}
 
 	#closeSettings {
-		width: 100px;
-		height: 100px;
+		width: 30px;
+		height: 30px;
 		position: absolute;
 		border: none;
 		top: 20px; right: 20px;
@@ -233,17 +232,21 @@
 
 
 	#playButton {
-		display: inline;
+		display: block;
 		position: absolute;
-		width: calc(var(--Wbutton) * 2 + var(--BetweenInfoAndSetting));
-		height: var(--ButtonHeight);
+		width: var(--Hbutton);
+		padding-bottom: var(--Hbutton);
 		border: none;
-		left: calc((100% - (var(--BetweenInfoAndSetting) + var(--Wbutton) * 2)) / 2);
-		top: calc((100% - var(--Allheight)) / 2 + var(--Allheight) * 0.25);
+		left: calc((100% - var(--Hbutton)) / 2);
+		top: var(--top);
 		border-radius: 20px;
-		background: none;
-		transition: 1s;
-		vertical-align: middle;
+
+		background: url("play.png") no-repeat;
+		background-size: contain;
+		background-position: 50% 50%;
+		background-origin: border-box;
+
+		transition: background-color 1s;
 
 		--elementW: width;
 		font-weight: 800;
@@ -256,23 +259,24 @@
 		font-size: 80px;
 		font-weight: 800;
 		font-family: "arial";
-		color: white;
+		color: black;
 		vertical-align: center;
 	}
 
 	#infoButton {
 		position: absolute;
-	    width: var(--Wbutton);
-	    padding-bottom: var(--Wbutton);
+	    width: var(--Hbutton);
+	    padding-bottom: var(--Hbutton);
 	    border-radius: 50px;
-	    left: calc((100% - (var(--BetweenInfoAndSetting) + var(--Wbutton) * 2)) / 2);
-	    top: calc((100% - var(--Allheight)) / 2 + var(--Allheight) * 0.25 + var(--BetweenButtons));
-	    transition: 1s;
+	    left: calc((100% - var(--Hbutton)) / 2);
+	    top: calc(var(--top) + var(--Hbutton) * 0.5 + var(--BetweenButtons));
+	    transition: background-color 1s;
+	    background-color: rgb(0,150, 200);
 	}
 
 	#infoButtonContent {
 		position: absolute;
-		color: rgb(0,150, 200);
+		color: white;
 		font-size: 50px;
 		font-weight: 800;
 		left: 50%;
@@ -286,15 +290,16 @@
 
 	#settingsButton {
 	    position: absolute;
-	    width: var(--Wbutton);
-	    padding-bottom: var(--Wbutton);
+	    width: var(--Hbutton);
+	    padding-bottom: var(--Hbutton);
 	    border-radius: 50px;
-	    right: calc((100% - (var(--BetweenInfoAndSetting) + var(--Wbutton) * 2)) / 2);
-	    top: calc((100% - var(--Allheight)) / 2 + var(--Allheight) * 0.25 + var(--BetweenButtons));
+	    left: calc((100% - var(--Hbutton)) / 2);
+	    top: calc(var(--top) + var(--Hbutton) + var(--BetweenButtons) * 2);
 	    z-index: 0;
+
 	    background: url("settingsButton.png");
 	    background-size: cover;
-	    transition: 1s;
+	    transition: background-color 1s;
 	}
 
 
@@ -326,17 +331,16 @@
 	}
 
 	#infoButton span:hover {
-		background-color: white;
-		color: rgb(0, 0, 0);
+		background-color: black;
+		color: white;
 	}
 
 	#settingsButton:hover {
-		background-color: white;
+		background-color: gray;
 	}
 
 	#playButton:hover {
-		color: black;
-		background-color: white;
+		background-color: gray;
 	}
 
 
@@ -357,7 +361,7 @@
 		z-index: 0;
 
 		--gameDivUpH: 100px;
-		--borderW: 20px;
+		--borderW: 10px;
 		--betweenCanvasUp: 20px;
 	}
 
@@ -372,24 +376,25 @@
 	#pausePanel {
 		display: none;
 		width: 400px;
-		height: 600px;
+		height: calc(var(--PausePanelUpH) + var(--H) + var(--between));
 		background: none;
 		position: absolute;
 		top: 50%; left: 50%;
 		transform: translate(-50%, -50%);
 		z-index: 100;
 
-		--H: 80px;
+		--H: 50px;
 		--between: 20px;
+		--PausePanelUpH: calc(var(--H) * 5);
 	}
 
 	#pausePanelUp {
 		position: absolute;
 		width: 100%;
-		height: calc(100% - var(--H) - var(--between));
+		height: var(--PausePanelUpH);
 		top: 0%;
 		background: url("waterfall.png") no-repeat;
-		background-position: 0 50%;
+		background-position: 50% 50%;
 		background-size: contain;
 
 		--AppleH: 100px;
@@ -431,7 +436,7 @@
 
 	#pausePanelUp #bestScore span {
 		position: absolute; top: calc(var(--AppleH));
-		color: purple; font-size: 40px; font-weight: 800;
+		color: white; font-size: 40px; font-weight: 800;
 		height: var(--SpanH);
 		left: 50%; transform: translate(-50%, 0);
 	}
@@ -448,22 +453,30 @@
 		position: absolute;
 		width: var(--H);
 		padding-bottom: var(--H);
-		right: 0%;
+		right: 10%;
 		background: url("settingsButton.png");
 		background-size: cover;
+		transition: 1s;
+	}
+
+	#pauseSettings:hover {
+		background-color: gray;
 	}
 
 	#pausePanelDown #continueGame {
 		border: none;
 		border-radius: 20px;
 		position: absolute;
-		width:	calc(100% - var(--between) - var(--H));
+		width:calc(80% - var(--between) - var(--H));
 		height: var(--H);
-		left: 0%;
+		left: 10%;
 		background-color: #78DBE2;
 		font-size: 40px;
 		font-weight: 800;
 		color: white;
+		display: inline;
+		vertical-align: middle;
+		text-align: center;
 	}
 
 	#gameDivUp {
@@ -473,10 +486,11 @@
 		height: var(--gameDivUpH);
 		left: 50%; top: 20px;
 		transform: translate(-50%, 0);
-		border: 20px solid white;
+		border: var(--borderW) solid white;
 		border-radius: 50px;
 
 		--padding: 20px;
+		--k: 0.3;
 	}
 
 	#gameDivUp #score {
@@ -490,21 +504,29 @@
 	#gameDivUp #pauseButton {
 		position: absolute;
 		left: var(--padding); top: 50%; transform: translate(0, -50%);
-		width: calc(var(--gameDivUpH) * 0.8); padding-bottom: calc(var(--gameDivUpH) * 0.8);
-		border-radius: 20px;
+		width: calc(var(--gameDivUpH) * var(--k)); padding-bottom: calc(var(--gameDivUpH) * var(--k));
+		border-radius: 50%;
 		background: url("pause.png");
 		background-size: contain;
 		/*background-color: white;*/
 	}
+
+	#pauseButton:hover {
+		background-color: gray;
+	}
+
 	#gameDivUp #backToMenu {
 		position: absolute;
-		border-radius: 20px;
 		border: none;
-		left: calc(var(--gameDivUpH) * 0.8 + var(--padding) * 2); top: 50%; transform: translate(0, -50%);
-		padding-bottom: calc(var(--gameDivUpH) * 0.8);
-		width: calc(var(--gameDivUpH) * 0.8);
+		left: calc(var(--gameDivUpH) * var(--k) + var(--padding) * 2); top: 50%; transform: translate(0, -50%);
+		padding-bottom: calc(var(--gameDivUpH) * var(--k));
+		width: calc(var(--gameDivUpH) * var(--k));
 		background: url("40.png") no-repeat;
 		background-size: contain;
+	}
+
+	#backToMenu:hover {
+		background-color: gray;
 	}
 
 	#canvas {
@@ -513,7 +535,7 @@
 		height: calc(100% - (var(--gameDivUpH) + var(--betweenCanvasUp) * 3 + var(--borderW) * 4));
 		transform: translate(-50%, 0);
 
-		border: 20px solid white;
+		border: var(--borderW) solid white;
 		border-radius: 50px
 	}
 
@@ -528,37 +550,45 @@
 		width: 500px;
 		height: 540px;
 
-		--SlidersCount: 3;
+		--SlidersCount: 4;
 		--SliderButtonW: 40px;
 		--SliderPadding: 10px;
 		--BetweenSliders: 20px;
-		--CloseButtonW: 100px;
+		--CloseButtonW: 30px;
 		--CloseButtonPadding: 20px;
 		--SliderH: calc(1 / var(--SlidersCount) * (100% - var(--CloseButtonW) - var(--CloseButtonPadding) * 3 - (var(--SlidersCount) - 1) * var(--BetweenSliders)));
 	}
 
 	#closeGameSettings {
-		width: 100px;
-		height: 100px;
+		width: 30px;
+		height: 30px;
 		position: absolute;
 		border: none;
 		top: 20px; right: 20px;
 	}
 
+	#closeGameSettings:hover {
+		background-color: gray;
+	}
+
 	/*						mode slider					*/
 
-	#gameSizeButton {
+	#settingsButtonGame {
 		position: absolute;
 		right: calc(var(--SliderPadding) * 2);
 		top: calc(var(--CloseButtonW) + var(--CloseButtonPadding) * 2);
 		height: var(--SliderH); padding-left: var(--SliderH);
-		background: url("hippo.png") no-repeat;
+		background: url("settingsButton.png") no-repeat;
 		background-size: contain;
 		background-origin: border-box;
 		background-position: 50% 50%;
 		border: none;
 		border-radius: 20px;
 		box-sizing: content-box;
+	}
+
+	#settingsButtonGame:hover {
+		background-color: gray;
 	}
 
 	#selectMode {
@@ -601,14 +631,12 @@
 		left: calc(20px + 40px);
 		display: table-cell;
 		border-radius: 20px;
-
-		color : white; font-size: 60px; font-weight: 600;
 	}
 
 	#gameMode span {
 		position: absolute;
 		top: 50%; left: 50%; transform: translate(-50%, -50%);
-		color: white; font-size: 60px; font-weight: 600;
+		color: white; font-size: 40px; font-weight: 600;
 		font-family: "arial";
 		width: 100%;
 		text-align: center;
@@ -660,6 +688,69 @@
 		left: calc(var(--SliderPadding) * 2 + var(--SliderButtonW));
 	}
 
+	#colorModeSpan {
+		color: white; font-size: 40px; font-weight: 600; font-family: "arial";
+		position: absolute;
+		top: 50%; left: 50%; transform: translate(-50%, -50%);
+		width: 100%;
+		text-align: center;
+	}
+
+	/*			game size slider			*/
+
+
+	#gameSizeDiv {
+		position: absolute;
+		width: 100%;
+		height: var(--SliderH); top: calc(var(--CloseButtonW) + 
+			var(--CloseButtonPadding) * 2 + var(--BetweenSliders) * 2 + var(--SliderH) * 2);
+		background: none;
+	}
+
+	#gameSizeDiv button {
+		border: none;
+		border-radius: 10px;
+		padding-bottom: var(--SliderButtonW); width: var(--SliderButtonW);
+		background-color: blue;
+		position: absolute;
+		top: 50%;
+		transform: translate(0, -50%);
+	}
+
+	#gameSizeDiv #slideLeftSize {
+		left: var(--SliderPadding);
+		background: url("leftArrow.png") no-repeat;
+		background-size: contain;
+		background-origin: border-box;
+		background-position: 50% 50%;
+	}
+
+	#gameSizeDiv #slideRightSize {
+		right: var(--SliderPadding);
+		background: url("rightArrow.png") no-repeat;
+		background-size: contain;
+		background-origin: border-box;
+		background-position: 50% 50%;
+	}
+
+	#gameSizeDiv #gameSize {
+		position: absolute;
+		width: calc(100% - var(--SliderPadding) * 4 - var(--SliderButtonW) * 2);
+		height: 100%;
+		border: none;
+		border-radius: 20px;
+		background-color: green;
+		left: calc(var(--SliderPadding) * 2 + var(--SliderButtonW));
+	}
+
+	#gameSizeSpan {
+		color: white; font-size: 40px; font-weight: 600; font-family: "arial";
+		position: absolute;
+		top: 50%; left: 50%; transform: translate(-50%, -50%);
+		width: 100%;
+		text-align: center;
+	}
+
 
 	/*			food sliders				*/
 
@@ -667,8 +758,8 @@
 		position: absolute;
 		width: 100%;
 		height: var(--SliderH); top: calc(var(--CloseButtonW) + 
-			var(--CloseButtonPadding) * 2 + var(--BetweenSliders) * 2 + var(--SliderH) * 2);
-		background: none
+			var(--CloseButtonPadding) * 2 + var(--BetweenSliders) * 3 + var(--SliderH) * 3);
+		background: none;
 	}
 
 	#foodModeDiv button {
@@ -709,16 +800,6 @@
 		left: calc(var(--SliderPadding) * 2 + var(--SliderButtonW));
 	}
 
-	#settingsButtonGame {
-	    position: absolute;
-	    width: 100px;
-	    padding-bottom: 100px;
-	    border-radius: 50px;
-	    left: 20px; top: 20px;
-	    background: url("settingsButton.png");
-	    background-size: cover;
-	}
-
 	#youWinPanel {
 		transition: 2s;
 		display: none;
@@ -730,6 +811,24 @@
 	}
 
 	#youWinSpan {
+		color: white; font-size: 100px; font-weight: 800; font-family: "arial";
+		text-align: center;
+		width: 100%;
+		position: absolute;
+		top: 50%; left: 50%; transform: translate(-50%, -50%);
+	}
+
+	#youLosePanel {
+		transition: 2s;
+		display: none;
+		position: absolute;
+		top: 50%; left: 50%; transform: translate(-50%, -50%);
+		width: 100%; height: 100%;
+		background: rgba(0, 0, 0, 0.5);
+		z-index: 200;
+	}
+
+	#youLoseSpan {
 		color: white; font-size: 100px; font-weight: 800; font-family: "arial";
 		text-align: center;
 		width: 100%;

@@ -3,7 +3,7 @@
 
 <div id="mainPage">
 	<div id="menuPanel">
-		<button id="playButton" class="menuElement" onclick="playGame()">play</button>
+		<button id="playButton" class="menuElement" onclick="playGame()"></button>
 		<div id=settingsButton class="menuElement" onclick="openSettings()"></div>
 		<div id="infoButton" onclick="openInfo()" class="menuElement">
 			<span id="infoButtonContent">i</span>
@@ -18,7 +18,7 @@
 		</div>
 	</div>
 
-	<img src="MainPage.png" id="mainPageBackground"></img>
+	<div id="mainPageBackground"></div>
 </div>
 
 <div id="darkBackground"></div>
@@ -26,8 +26,12 @@
   <span id="youWinSpan">you win this game</span>
 </div>
 
+<div id="youLosePanel">
+  <span id="youLoseSpan">you lose</span>
+</div>
+
 <div id="settingsPanel">
-  <img src="closeButton.png" id="closeSettings" onclick="closeSettings()" unselectable="on"></img>
+  <img src="closeButton.png" id="closeSettings" onclick="closeSettings()"></img>
   <div id="languageButton" onclick="changeLanguage()"></div>
   <div id="muteButton" onclick="changeSound()"></div>
   <input id = "muteSlider" type="range" oninput="changeVolume()" min=0 max=100 step=1 start=0></input>
@@ -45,8 +49,8 @@
     </div>
   </div>
   <div id="pausePanelDown">
-    <button id="continueGame" onclick="closePausePanel()" unselectable="on">continue</button>
-    <button id="pauseSettings" onclick="openGameSettings()" unselectable="on"></button>
+    <button id="continueGame" onclick="closePausePanel()" >continue</button>
+    <button id="pauseSettings" onclick="openGameSettings()" ></button>
   </div>
 
   <div id="gameSettingsPanel">
@@ -59,11 +63,20 @@
         <span id="gameModeSpan">classic</span>
       </div>
     </div>
-    <button id="gameSizeButton" onclick="changeGameSize()"></button>
+    <!-- <button id="gameSizeButton" onclick="changeGameSize()"></button> -->
     <div id="colorModeDiv">
       <button id="slideLeftColor" onclick="decreaseColor()"></button>
       <button id="slideRightColor" onclick="increaseColor()"></button>
-      <div id="colorMode"></div>
+      <div id="colorMode">
+        <span id="colorModeSpan">snake's color</span>
+      </div>
+    </div>
+    <div id="gameSizeDiv">
+      <button id="slideLeftSize" onclick="decreaseGameSize()"></button>
+      <button id="slideRightSize" onclick="increaseGameSize()"></button>
+      <div id="gameSize">
+        <span id="gameSizeSpan">field size</span>
+      </div>
     </div>
     <div id="foodModeDiv">
       <button id="slideLeftFood" onclick="decreaseFood()"></button>
@@ -77,7 +90,7 @@
   <div id="gameDiv">
     <div id="gameDivUp">
       <button id="backToMenu" onclick="backToMenu()"></button>
-      <img id="pauseButton" unselectable="on" src="" onclick="openPausePanel()"></img>
+      <img id="pauseButton" src="" onclick="openPausePanel()"></img>
       <span id="score">score : 0</span>
     </div>
     <canvas id="canvas" width="400" height="400"></canvas>
